@@ -63,7 +63,7 @@ document.addEventListener('change', async (e) => {
     if (confirmAction) {
       try {
         const response = await axios.post(`../api/status.php`, { id: id,status:selectedOption});
-        alert(response.data); 
+        alert(response.data.message); 
         fetchData(); // Refresh the data
       } catch (error) {
         alert(error.response?.data?.error || 'An error occurred while updating status.');
