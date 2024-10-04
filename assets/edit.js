@@ -2,9 +2,7 @@ import axios from 'https://cdn.skypack.dev/axios';
 
 const form = document.getElementById('form');
 const display = document.getElementById('display');
-const fname = document.getElementById('fname');
-const lname = document.getElementById('lname');
-const age = document.getElementById('age');
+const [fname,lname,age] = ['fname','lname','age'].map(id => document.getElementById(id));
 const urlParams = new URLSearchParams(window.location.search);
 const idParam = urlParams.get('id');
 

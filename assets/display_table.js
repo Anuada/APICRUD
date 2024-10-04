@@ -30,6 +30,17 @@ async function fetchData() {
           <a href="edit_form.html?id=${record.id}" class="edit-btn">Edit</a>
           <button class="delete-btn" data-id="${record.id}">Delete</button>
         </td>
+        <td class="text-center">
+        ${record.status !=='Pending' ? 
+          record.status
+         : `
+          <select class="form-control status-select" data-id="${record.id}">
+            <option disabled selected>${record.status}</option>
+            <option data-status="Accept">Accept</option>
+            <option data-status="Cancel">Cancel</option>
+          </select>
+        `}
+        </td>
       `;
       tableBody.appendChild(row);
     });
@@ -39,25 +50,41 @@ async function fetchData() {
   }
 }
 
-fetchData(); 
+fetchData();
 
-
-
-
-// Optional: Add event listeners for edit and delete buttons
-
-document.addEventListener('click', async(e) => {
-   if (e.target.classList.contains('delete-btn')) {
+// Event listener for status selection
+document.addEventListener('change', async (e) => {
+  
+  if (e.target.classList.contains('status-select')) {
     const id = e.target.getAttribute('data-id');
-    const confirmdelete = confirm('Are you sure you want to Delete this person?');
-    if (confirmdelete) {
-        try {
-            const response = await axios.post(`../api/delete.php`,{id:id});
-            alert(response.data.message);
-            fetchData();
-        } catch (error) {
-            alert(error.response.data.error);
-        }
+    const selectedOption = e.target.options[e.target.selectedIndex].dataset.status;
+
+    const confirmAction = confirm(`Are you sure you want to ${selectedOption}?`);
+    if (confirmAction) {
+      try {
+        const response = await axios.post(`../api/status.php`, { id: id,status:selectedOption});
+        alert(response.data); 
+        fetchData(); // Refresh the data
+      } catch (error) {
+        alert(error.response?.data?.error || 'An error occurred while updating status.');
+      }
+    }
+  }
+});
+
+// Event listener for delete buttons
+document.addEventListener('click', async (e) => {
+  if (e.target.classList.contains('delete-btn')) {
+    const id = e.target.getAttribute('data-id');
+    const confirmDelete = confirm('Are you sure you want to delete this person?');
+    if (confirmDelete) {
+      try {
+        const response = await axios.post(`../api/delete.php`, { id: id });
+        alert(response.data.message);
+        fetchData(); // Refresh the data
+      } catch (error) {
+        alert(error.response?.data?.error || 'An error occurred while deleting.');
+      }
     }
   }
 });
