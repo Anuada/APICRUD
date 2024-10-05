@@ -17,18 +17,27 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $data = json_decode(file_get_contents("php://input"), true);
 
 // Validate required fields
-if (!isset($data['fname']) || empty(trim($data['fname'])) ||
+if (
+    !isset($data['fname']) || empty(trim($data['fname'])) ||
+    !ctype_alpha(trim($data['fname'])) ||
+    !is_string(trim($data['lname'])) ||
     !isset($data['lname']) || empty(trim($data['lname'])) ||
-    !isset($data['age']) || !is_numeric($data['age'])) {
+    !ctype_alpha(trim($data['lname'])) ||
+    !is_string(trim($data['lname'])) ||
+    !isset($data['age']) || !is_numeric($data['age'])
+) {
     http_response_code(400); // Bad Request
-    echo json_encode(['error' => 'Please provide valid fname, lname, and age']);    
+    echo json_encode(['error' => 'Please provide valid fname, lname (only letters), and age']);
     exit();
 }
+
+
 
 // Sanitize inputs
 $fname = trim($data['fname']);
 $lname = trim($data['lname']);
 $age = (int) $data['age'];
+
 
 // Insert the new record into the database
 $insertData = [
@@ -36,6 +45,14 @@ $insertData = [
     'lname' => $lname,
     'age' => $age
 ];
+
+$existingRecord = $db->getRecordByNameAndAge($fname, $lname, $age); // Implement this method in DbHelper
+
+if ($existingRecord) {
+    http_response_code(409); // Conflict
+    echo json_encode(['error' => 'Data already exists']);
+    exit();
+}
 
 $result = $db->addRecord('info', $insertData);
 
@@ -46,4 +63,3 @@ if ($result) {
     http_response_code(500); // Internal Server Error
     echo json_encode(['error' => 'Failed to insert data']);
 }
-    

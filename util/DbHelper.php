@@ -186,6 +186,18 @@ class DbHelper
      * @param string $month The month and year in the format **`'YYYY-MM'`** to filter the records.
      * @return array|bool|null
      */
+
+    public function getRecordByNameAndAge($fname, $lname, $age)
+    {
+        // Use $this->conn for the database connection
+        $sql = $this->conn->prepare("SELECT * FROM info WHERE fname = ? AND lname = ? AND age = ?");
+        $sql->bind_param("ssi", $fname, $lname, $age); // 'ssi' indicates string, string, integer
+        $sql->execute();
+        $result = $sql->get_result();
+        return $result->fetch_assoc();
+    }
+
+
     public function allClients(string $month)
     {
         $sql = "SELECT 
