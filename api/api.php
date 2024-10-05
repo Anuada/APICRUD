@@ -19,17 +19,22 @@ $data = json_decode(file_get_contents("php://input"), true);
 // Validate required fields
 if (
     !isset($data['fname']) || empty(trim($data['fname'])) ||
-    !ctype_alpha(trim($data['fname'])) ||
-    !is_string(trim($data['lname'])) ||
     !isset($data['lname']) || empty(trim($data['lname'])) ||
-    !ctype_alpha(trim($data['lname'])) ||
-    !is_string(trim($data['lname'])) ||
     !isset($data['age']) || !is_numeric($data['age'])
 ) {
     http_response_code(400); // Bad Request
     echo json_encode(['error' => 'Please provide valid fname, lname (only letters), and age']);
     exit();
+} else {
+    if (!ctype_alpha(trim($data['fname'])) || !ctype_alpha(trim($data['lname']))) {
+        http_response_code(403); // Forbidden
+        echo json_encode(['error' => 'Please provide valid fname, lname (only letters)']);
+        exit();
+    }
 }
+
+
+
 
 
 
