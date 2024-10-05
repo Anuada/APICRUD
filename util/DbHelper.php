@@ -5,11 +5,11 @@
  */
 class DbHelper
 {
-    private string $hostname = "127.0.0.1";
-    private string $username = "root";
-    private string $password = "";
-    private string $database = "form_submit";
-    private mysqli $conn;
+    private $hostname = "127.0.0.1";
+    private $username = "root";
+    private $password = "";
+    private $database = "form_submit";
+    private $conn;
 
     public function __construct()
     {
@@ -26,7 +26,7 @@ class DbHelper
      * 
      * @param string $table The name of the table to fetch records from.
      * @return array 
-     */     public function fetchRecords(string $table): array
+     */     public function fetchRecords(string $table)
     {
         $sql = "SELECT * FROM `$table`";
         $stmt = $this->conn->prepare($sql);
@@ -46,7 +46,7 @@ class DbHelper
      * @param array $args An associative array of column names and their corresponding values, used to build the **`WHERE`** clause of the query.
      * @return array|bool|null
      */
-    public function fetchRecord(string $table, array $args): array|bool|null
+    public function fetchRecord(string $table, array $args)
     {
         $keys = array_keys($args);
         $values = array_values($args);
@@ -64,7 +64,7 @@ class DbHelper
      * @param array $args An associative array of column names and values used to build the **`WHERE`** clause for deletion.
      * @return int|string
      */
-    public function deleteRecord(string $table, array $args): int|string
+    public function deleteRecord(string $table, array $args)
     {
         $key = array_keys($args);
         $value = array_values($args);
@@ -92,7 +92,7 @@ class DbHelper
      * @param array $args An associative array of column names and values to insert into the table.
      * @return int|string
      */
-    public function addRecord(string $table, array $args): int|string
+    public function addRecord(string $table, array $args)
     {
         $key = array_keys($args);
         $value = array_values($args);
@@ -110,7 +110,7 @@ class DbHelper
      * @param array $args An associative array of column names and values. The first key-value pair is used as the **`WHERE`** condition, while the rest are used to update the record.
      * @return int|string
      */
-    public function updateRecord(string $table, array $args): int|string
+    public function updateRecord(string $table, array $args)
     {
         $key = array_keys($args);
         $value = array_values($args);
@@ -142,7 +142,7 @@ class DbHelper
      * @param string $implode a string that is used to concatenate the conditions (such as AND or OR).
      * @return string
      */
-    private function condition(array $key, array $value, int $index, string $implode): string
+    private function condition(array $key, array $value, int $index, string $implode)
     {
         $condition = [];
         for ($i = $index; $i < count($key); $i++) {
@@ -156,7 +156,7 @@ class DbHelper
      * The **`getAllLogs`** function retrieves and returns all visitor logs from the database, including details such as visitor name, purpose, type, status, office, date, and time.
      * @return array
      */
- /*   public function getAllLogs(): array
+    /*   public function getAllLogs(): array
     {
         $sql = "SELECT 
                     `v`.`id`, 
@@ -186,7 +186,7 @@ class DbHelper
      * @param string $month The month and year in the format **`'YYYY-MM'`** to filter the records.
      * @return array|bool|null
      */
-    public function allClients(string $month): array|bool|null
+    public function allClients(string $month)
     {
         $sql = "SELECT 
                     COUNT(CASE WHEN type = 'Employee' THEN 1 END) AS employee_count,
