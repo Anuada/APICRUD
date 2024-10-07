@@ -2,8 +2,10 @@
 session_start();
 require_once "../util/DbHelper.php";
 
-$db = new DbHelper();
+require_once "../util/DirHandler.php";
 
+$db = new DbHelper();
+$dh = new DirHandler();
 
 if (isset($_POST["signup"])) {
     $fname = $_POST["fname"];
@@ -19,15 +21,15 @@ if (isset($_POST["signup"])) {
 
     if (!empty(trim($fname)) && !empty(trim($lname)) && !empty(trim($dob)) && !empty(trim($contact)) && !empty(trim($address)) && !empty(trim($email)) && !empty(trim($user_type)) && !empty(trim($username)) && !empty(trim($password)) && !empty(trim($con_password))) {
         if ($user_type != 'Admin' && $user_type != 'admin') {
-            $check_email = $db->fetchRecords("account", ["email" => $email]);
+            $check_email = $db->fetchRecord("account", ["email" => $email]);
             if ($check_email == null) {
-                $check_username = $db->fetchRecords("account", ["username" => $username]);
+                $check_username = $db->fetchRecord("account", ["username" => $username]);
                 if ($check_username == null) {
                     if ($password === $con_password) {
 
                         $password = password_hash($password, PASSWORD_DEFAULT);
                         $db->addRecord("account", ["accountId" => $accountId, "email" => $email, "username" => $username, "password" => $password, "user_type" => $user_type, "isLogin" => "0"]);
-                        $accountuser = $db->fetchRecords("account", ["email" => $email])[0];
+                        $accountuser = $db->fetchRecord("account", ["email" => $email])[0];
                         $accountId = $accountuser["accountId"];
                         if (isset($_FILES["profile_image"]) && $_FILES['profile_image']['size'] > 0) {
                             $info = ["accountId" => $accountId, "fname" => $fname, "lname" => $lname, "address" => $address, "DOB" => $dob, "contactNo" => $contact, "profileImage" => $accountId . ".png"];
@@ -39,12 +41,7 @@ if (isset($_POST["signup"])) {
                                     $db->addRecord("users", $info);
                                     break;
 
-                                case 'youth_leader':
-                                    $img_name = $accountId . ".png";
-                                    $img_file = $dh->youth_leader . $img_name;
-                                    move_uploaded_file($_FILES["profile_image"]["tmp_name"], $img_file);
-                                    $db->addRecord("youth_leader", $info);
-                                    break;
+                                
 
                                 default:
 

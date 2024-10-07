@@ -1,0 +1,76 @@
+body{
+    background-color: rgb(202, 233, 243);
+}
+
+.login-container {
+    margin-top: 100px;
+}
+
+.bg-fuchsia:hover{
+    background-color: #fd8ec7;
+    color: #fff;
+}
+
+.pt-40{
+    padding-top:40vh;
+}
+
+.pt-20{
+    padding-top: 25px;
+}
+
+.d-flex img {
+    width: 400px;
+}
+
+.w-form{
+    width:80%;
+}
+
+.forgot-password-link {
+    color: #EC1D87; /* Change color as needed */
+    text-decoration: none;
+}
+
+
+.transparent-input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #EC1D87; /* Optional: Add a border for better visibility */
+    outline: none;
+    box-shadow: none;
+    color: #ccc; /* Optional: Set text color */
+}
+
+/* #EC1D87 */
+
+
+@media (max-width: 767px){
+    .login-container {
+        margin-top: 30px;
+    }
+
+    .pt-40{
+        padding-top: 10vh;
+    }
+
+    .d-flex img{
+        width: 300px;
+    }
+
+    .pt-20{
+        padding-top: 0;
+    }
+
+    .w-form{
+        width: 100%;
+    }
+
+    .mb-20{
+        margin-bottom: 20px;
+    }
+
+    .p-4{
+        padding-bottom: 0.25rem;
+    }
+}

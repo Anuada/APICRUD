@@ -1,0 +1,65 @@
+body{
+    background-color: rgb(202, 233, 243); 
+}
+
+.signup-container {
+    margin-top: 30px;
+}
+
+.bg-fuchsia:hover{
+    background-color: #a6b2f8;
+    color: #fff;
+}
+
+.pt-40{
+    padding-top:40vh;
+}
+
+.pt-20{
+    padding-top: 25px;
+}
+
+.d-flex img {
+    width: 400px;
+}
+
+.w-form{
+    width:100%;
+}
+
+
+/* #EC1D87 */
+
+
+@media (max-width: 767px){
+    body{
+        height: 250vh;
+    }
+    .pt-40{
+        padding-top: 10vh;
+    }
+
+    .d-flex img{
+        width: 300px;
+    }
+
+    .pt-20{
+        padding-top: 0;
+    }
+
+    .w-form{
+        width: 100%;
+    }
+
+    .mb-20{
+        margin-bottom: 20px;
+    }
+
+    .p-4{
+        padding-bottom: 0.25rem;
+    }
+.signup-container {
+    background-color: lightblue; /* Change the background color here */
+}
+
+}

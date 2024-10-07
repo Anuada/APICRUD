@@ -1,0 +1,32 @@
+/* landing.page.css */
+
+/* Resetting margin and padding for better consistency */
+body, h1, h2, h3, p, img, div {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for the secondary text */
+.secondary-text {
+    font-size: 1.5em;
+    color: #333; /* Adjust the color as needed */
+    margin-top: 20px;
+    text-align: justify; /* Justify the text */
+}
+
+/* Style for the Book Now button */
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+/* Hover effect for the button */
+.btn-success:hover {
+    background-color: #218838;
+}

@@ -1,0 +1,16 @@
+
+    /* Add this CSS to center the side-menu inside the modal */
+    #offcanvasProfile {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px; /* Adjust the width as needed */
+    background-color: #FFC0CB; /* Replace with your desired background color */
+    padding: 10px; /* Add padding for better visual appearance */
+    border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+}
+
+    /* Optional: Add this CSS to make the modal wider if necessary */
+    .modal-content {
+        max-width: 400px; /* Adjust the max-width as needed */
+    }
