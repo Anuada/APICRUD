@@ -12,9 +12,9 @@ if (!isset($_GET['id']) || empty(trim($_GET['id']))) {
     exit();
 }
 
-$id = $_GET['id'];  
+$id = $_GET['id'];
 
-$findData = $db->fetchRecord('info', ['id' => $id]);
+$findData = $db->fetchRecords('info', ['id' => $id]);
 
 if (empty($findData)) {
     http_response_code(404);

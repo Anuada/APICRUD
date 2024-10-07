@@ -3,7 +3,8 @@ import axios from 'https://cdn.skypack.dev/axios';
 const form = document.getElementById('form');
 const display = document.getElementById('display');
 const id = document.getElementById('id');
-const tableBody = document.querySelector('#display tbody'); // Ensure this references the correct table body
+const tableBody = document.querySelector('#display tbody');
+ // Ensure this references the correct table body
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -54,3 +55,19 @@ form.addEventListener('submit', async (e) => {
 document.addEventListener('DOMContentLoaded', async () => {
     // This could be used to prepopulate the table if needed
 });
+
+document.addEventListener('click', async (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+      const id = e.target.getAttribute('data-id');
+      const confirmDelete = confirm('Are you sure you want to delete this person?');
+      if (confirmDelete) {
+        try {
+          const response = await axios.post(`../api/delete.php`, { id: id });
+          alert(response.data.message);
+          location.reload();
+        } catch (error) {
+          alert(error.response?.data?.error || 'An error occurred while deleting.');
+        }
+      }
+    }
+  });
