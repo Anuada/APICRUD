@@ -26,14 +26,21 @@ class DbHelper
      * 
      * @param string $table The name of the table to fetch records from.
      * @return array 
-     */     public function fetchRecords(string $table)
+     */     public function fetchRecords($table, $args = null)
     {
+       if ($args != null) {
+        $key = array_keys($args);
+        $value = array_values ($args);
+        $condition = $this->condition($key, $value, "0", "AND");
+        $sql = "SELECT * FROM `$table` WHERE $condition";
+
+       } else {
         $sql = "SELECT * FROM `$table`";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->get_result();
+
+       }
+       $query = $this->conn->query($sql);
         $rows = [];
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $query->fetch_assoc()) {
             $rows[] = $row;
         }
         return $rows;

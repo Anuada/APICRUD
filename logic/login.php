@@ -9,7 +9,7 @@ if (isset($_POST["login"])) {
     $password = $_POST["password"];
 
     if (!empty(trim($username)) && !empty(trim($password))) {
-        $account = $db->fetchRecord("account", ["username" => $username]);
+        $account = $db->fetchRecords("account", ["username" => $username]);
         if ($account != null) {
             if (password_verify($password, $account[0]["password"])) {
                 $db->updateRecord("account", ["accountId" => $account[0]["accountId"], "isLogin" => "1"]);
@@ -21,9 +21,9 @@ if (isset($_POST["login"])) {
 
                 switch ($account[0]["user_type"]) {
                     case 'users':
-                        $users = $db->fetchRecord("users", ["accountId" => $account[0]["accountId"]]);
+                        $users = $db->fetchRecords("users", ["accountId" => $account[0]["accountId"]]);
                         $_SESSION["m"] = "Welcome " . $users[0]["fname"] . " " . $users[0]["lname"];
-                        header("Location: ../user/");
+                        header("Location: ../users/");
                         break;
 
                     case 'admin':
