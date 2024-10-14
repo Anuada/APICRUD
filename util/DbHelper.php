@@ -205,17 +205,17 @@ class DbHelper
     }
 
 
-    public function allClients(string $month)
-    {
-        $sql = "SELECT 
-                    COUNT(CASE WHEN type = 'Employee' THEN 1 END) AS employee_count,
-                    COUNT(CASE WHEN type = 'Visitor' THEN 1 END) AS visitor_count
-                FROM 
-                    visitor_info
-                WHERE
-                    DATE_FORMAT(date, '%Y-%m') = '$month' AND status = 'Accepted'
-                ";
-        $query = $this->conn->query($sql);
-        return $query->fetch_assoc();
-    }
+    // public function allClients(string $month)
+    // {
+    //     $sql = "SELECT 
+    //                 COUNT(CASE WHEN type = 'Employee' THEN 1 END) AS employee_count,
+    //                 COUNT(CASE WHEN type = 'Visitor' THEN 1 END) AS visitor_count
+    //             FROM 
+    //                 visitor_info
+    //             WHERE
+    //                 DATE_FORMAT(date, '%Y-%m') = '$month' AND status = 'Accepted'
+    //             ";
+    //     $query = $this->conn->query($sql);
+    //     return $query->fetch_assoc();
+    // }
 }
